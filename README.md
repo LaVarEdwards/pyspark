@@ -7,9 +7,6 @@
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
@@ -203,14 +200,81 @@ deactivate
 </table>
 
 
-#### From the terminal window, enter:   
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#### create requirements.txt or [download](https://github.com/LaVarEdwards/pyspark/blob/main/requirements.txt)   
+		jupyter
+		pyspark
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+#### install the python packages
+		pip install -r requirements.txt
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+
+#### update the shell environment variables
+###### add the following to the end of the $HOME/.zshrc file
+		##
+		## pyspark with hadoop
+		##
+		export JAVA_HOME=$(/usr/libexec/java_home)
+		export PYSPARK_PYTHON=/usr/local/bin/python3 # Or your Python path
+		# Replace the spark <version> example
+		# export SPARK_HOME=/opt/homebrew/Cellar/apache-		spark/<version>/libexec 
+		export SPARK_HOME=/opt/homebrew/Cellar/apache-spark/3.5.1/libexec 
+		# Replace the hadoop <version> example
+		# export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/<version>/libexec
+		export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/3.4.0/libexec
+		# update the path(s)
+		export PATH=$SPARK_HOME/bin:$HADOOP_HOME/bin$PATH
+		# jupyterlab
+		export PYSPARK_DRIVER_PYTHON="jupyter"
+		export PYSPARK_DRIVER_PYTHON_OPTS="notebook" 
+		##
+		## pyspark with hadoop end
+		##
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+#### restart the terminal to load the environment variables and restart the python venv
+		cd <change to the project root directory>
+		source pyspark-env/bin/activate
+
+
+<!-- TESTING -->
+## Testing
+
+#### [download](https://github.com/LaVarEdwards/pyspark/blob/main/test_pyspark_install.ipynb) the testing jupyter notebook 
+
+#### start pyspark
+		pyspark
+		
+###### jupyter should start running the pyspark environment
+![Jupyter screenshot](images/jupyter_screenshot.png)
+
+###### double-click test_pyspark_install.ipynb
+![Jupyter screenshot](images/test_pyspark_screenshot.png)
+
+###### Then press <shift><return> after selecting the cell containing "import pyspark"
+
+<!-- INSTALL_NOTES -->
+## INSTALL NOTES
+
+#### Warning messages avoided using these installation instructions
+![Jupyter screenshot](images/jupyter_warn_screenshot.png)
+
+###### jupyter WARNings
+		<date and timestamp> WARN Utils: Your hostname, <hostname>.local resolves to a loopback address: 127.0.0.1; using <different address> instead (on interface bridge0)
+		<date and timestamp> WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+
+These warnings are resolved by installing jupyter instead of jupyterlab in requirements.txt
+
+###### hadoop WARNings
+		<date and timestamp> WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+This warning is fixed by installing hadoop (brew install hadoop) and setting the environment variable HADOOP_HOME=/opt/homebrew/Cellar/hadoop/3.4.0/libexec
+
+###### pyspark command
+		export PYSPARK_DRIVER_PYTHON="jupyter"
+		export PYSPARK_DRIVER_PYTHON_OPTS="notebook" 
+
+Running jupyter from pyspark is accomplished using  PYSPARK\_DRIVER\_PYTHON and PYSPARK\_DRIVER\_PYTHON\_OPTS 
 
 
 <!-- CONTRIBUTING -->
