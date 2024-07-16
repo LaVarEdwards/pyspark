@@ -1,94 +1,20 @@
-# pyspark
- Installation instructiuons for PySpark on macOS
+# PySpark Installation on macOS
+
+This guide provides step-by-step instructions for installing PySpark, Hadoop, and Jupyter on macOS.
 
 
-<a id="readme-top"></a>
+## About
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+This guide aims to simplify the PySpark installation process on macOS by addressing common challenges and promoting best practices.
 
+**Key Features:**
 
+- **Simplicity:** Clear and concise instructions with minimal configuration.
+- **Reliability:** Thoroughly tested steps to ensure consistent success.
+- **Best Practices:** Emphasis on using Python virtual environments for isolation and maintainability.
+- **Troubleshooting:**  Documentation of common errors and their solutions.
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Install PySpark on macOS</h3>
-
-  <p align="center">
-   Instructions to install PySpark, Hadoop, and Jupyter on macOS
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-<!-- ![PySpark install screenshot](images/test_pyspark_screenshot.png) -->
-
-There are many examples of installing PySpark available; however, I didn't find one that really suited my needs.
-
-My goal in creating these PySpark installation instructions is to address the common challenges I've encountered with existing resources. I aim to offer a streamlined, error-free guide that empowers users to quickly set up PySpark in a best-practice environment on their Mac.
-
-Here's what sets this guide apart:
-
-* Simplicity: I've focused on the minimum essential steps, avoiding unnecessary configurations that can lead to confusion.  
-* Reliability: I've meticulously tested and refined the instructions to ensure they work consistently, reducing frustration for users.  
-* Best Practices: The guide emphasizes the use of Python virtual environments to isolate project dependencies, promoting clean and maintainable code. This approach also helps avoid conflicts with other Python tools or libraries you may have installed on your system.  
-* Troubleshooting: I've documented common installation errors and their solutions, saving you valuable time and effort.  
-
-By following this guide, you'll be able to confidently install PySpark and begin your data science or data engineering projects on a solid foundation."
-
-Here's why:  
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others. 
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:  
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+By following this guide, you'll establish a solid foundation for your data science or data engineering projects with PySpark.
 
 
 ## Tested With
@@ -101,50 +27,65 @@ Here's why:
 [![Spark][Spark-logo]][Spark-url]
 
 #### Python Packages
-
-NOTE: pip install jupyter also installs jupyterlab and notebook.  
 [![Jupyter][PyPI-jupyter-logo]][PyPI-jupyter-url]
 [![PySpark][PyPI-PySpark-logo]][PyPI-pyspark-url]   
+NOTE: pip install jupyter also installs jupyterlab and notebook.  
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- GETTING STARTED -->
 ## Prerequisites
 
-Install brew.   
-Homebrew installs the stuff you need that Apple (or your Linux system) didn’t.
+#### 1. Install Homebrew: If you don't have Homebrew, install it from the terminal:   
+		/bin/bash -c "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh](https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh))"
 
-#### From the terminal window, enter:   
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-#### confirm brew is installed and updated:   
-		brew update
-		brew upgrade
-		
-#### Is python installed?
+#### 2. Check/Install Python: If you already have Python installed, check the version:   
 		python --version
 
-##### If python is not installed, use brew to install
+#### 2a. If you don't have Python, or if the version is older than 3.12, install Python 3.12 using Brew:   
 		brew install python@3.12
 
 
+## Installation
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Installation Instructions
-
-#### Install spark and hadoop
+#### 1. Install Spark and Hadoop:
 		brew install apache-spark hadoop
 
-#### Create a python venv (virtual environment)
-		cd <change to the project root directory>
-		mkdir <name of the project>
+#### 2. Create a Python Virtual Environment:   
+		cd <your_project_directory>
 		python -m venv pyspark-env
 		source pyspark-env/bin/activate
+
+#### 3. Create requirements.txt: in your project directory with the following content:   
+		jupyter
+		pyspark
+
+#### 4. Install the packages:
+		pip install -r requirements.txt
+
+#### 5. Update Environment Variables:** Add the following to your ~/.zshrc file (or the appropriate shell configuration file):   
+		##
+		## pyspark with hadoop
+		##
+		export JAVA_HOME=$(/usr/libexec/java_home)
+		export PYSPARK_PYTHON=/usr/local/bin/python3 # Or your Python path
+		# Replace the spark <version> example
+		# export SPARK_HOME=/opt/homebrew/Cellar/apache-		spark/<version>/libexec 
+		export SPARK_HOME=/opt/homebrew/Cellar/apache-spark/3.5.1/libexec 
+		# Replace the hadoop <version> example
+		# export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/<version>/libexec
+		export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/3.4.0/libexec
+		# update the path(s)
+		export PATH=$SPARK_HOME/bin:$HADOOP_HOME/bin$PATH
+		# jupyterlab
+		export PYSPARK_DRIVER_PYTHON="jupyter"
+		export PYSPARK_DRIVER_PYTHON_OPTS="notebook" 
+		##
+		## pyspark with hadoop end
+		##
+
+#### 6. Restart Terminal and Reactivate Environment: 
+		cd <your_project_directory>
+		source pyspark-env/bin/activate
+
 
 NOTES: Python virtual environments (venv) offer several key benefits:  
 
@@ -186,7 +127,6 @@ Commands to start and stop the python venv
 
 <table>
 <tr><td>
-<tr><td>
 start
 </td><td>
 source pyspark-env/bin/activate
@@ -200,60 +140,24 @@ deactivate
 </table>
 
 
-#### create requirements.txt or [download](https://github.com/LaVarEdwards/pyspark/blob/main/requirements.txt)   
-		jupyter
-		pyspark
-
-#### install the python packages
-		pip install -r requirements.txt
-
-
-#### update the shell environment variables
-###### add the following to the end of the $HOME/.zshrc file
-		##
-		## pyspark with hadoop
-		##
-		export JAVA_HOME=$(/usr/libexec/java_home)
-		export PYSPARK_PYTHON=/usr/local/bin/python3 # Or your Python path
-		# Replace the spark <version> example
-		# export SPARK_HOME=/opt/homebrew/Cellar/apache-		spark/<version>/libexec 
-		export SPARK_HOME=/opt/homebrew/Cellar/apache-spark/3.5.1/libexec 
-		# Replace the hadoop <version> example
-		# export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/<version>/libexec
-		export HADOOP_HOME=/opt/homebrew/Cellar/hadoop/3.4.0/libexec
-		# update the path(s)
-		export PATH=$SPARK_HOME/bin:$HADOOP_HOME/bin$PATH
-		# jupyterlab
-		export PYSPARK_DRIVER_PYTHON="jupyter"
-		export PYSPARK_DRIVER_PYTHON_OPTS="notebook" 
-		##
-		## pyspark with hadoop end
-		##
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-#### restart the terminal to load the environment variables and restart the python venv
-		cd <change to the project root directory>
-		source pyspark-env/bin/activate
-
-
-<!-- TESTING -->
 ## Testing
 
-#### [download](https://github.com/LaVarEdwards/pyspark/blob/main/test_pyspark_install.ipynb) the testing jupyter notebook 
-
-#### start pyspark
+#### 1. [download](https://github.com/LaVarEdwards/pyspark/blob/main/test_pyspark_install.ipynb) the jupyter notebook 
+ 
+#### 2. start pyspark
 		pyspark
-		
-###### jupyter should start running the pyspark environment
 ![Jupyter screenshot](images/jupyter_screenshot.png)
 
-###### double-click test_pyspark_install.ipynb
+#### 3. Open and run the test\_pyspark\_install.ipynb notebook to verify the installation.
 ![Jupyter screenshot](images/test_pyspark_screenshot.png)
 
-###### Then press <shift><return> after selecting the cell containing "import pyspark"
+#### test a simple ETL process
+![Jupyter screenshot](images/test_etl_screenshot.png)
 
-<!-- INSTALL_NOTES -->
+#### results of ETL process
+![Jupyter screenshot](images/etl_results_screenshot.png)
+
+
 ## INSTALL NOTES
 
 #### Warning messages avoided using these installation instructions
@@ -277,7 +181,6 @@ This warning is fixed by installing hadoop (brew install hadoop) and setting the
 Running jupyter from pyspark is accomplished using  PYSPARK\_DRIVER\_PYTHON and PYSPARK\_DRIVER\_PYTHON\_OPTS 
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -291,33 +194,18 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
 ## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
 
 Project Link: [https://github.com/LaVarEdwards/pyspark](https://github.com/LaVarEdwards/pyspark)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -348,18 +236,5 @@ Project Link: [https://github.com/LaVarEdwards/pyspark](https://github.com/LaVar
 [PyPI-jupyter-logo]: https://img.shields.io/badge/jupyter-1.0.0-blue
 [PyPI-jupyter-url]: https://pypi.org/project/jupyter/
 
-
-
-
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: v
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 
 

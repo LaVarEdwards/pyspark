@@ -1,0 +1,5 @@
+firstName,lastName,phone,email,birthdate
+john ,  doe   ,  (555) 123-4567 , johndoe@example.com,1985-03-15
+  Jane,  SMITH , 555-9876543  , jane.smith@email.com ,19921201
+ROBERT , WILLIAMS, 5551112222 , robertwilliams@example.net,1978/08/22
+Mary-Ann, Brown, 555) 333 4444 ,maryannbrown@example.org ,2000.06.10 
