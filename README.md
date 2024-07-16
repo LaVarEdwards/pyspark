@@ -61,7 +61,7 @@ NOTE: pip install jupyter also installs jupyterlab and notebook.
 #### 4. Install the packages:
 		pip install -r requirements.txt
 
-#### 5. Update Environment Variables:** Add the following to your ~/.zshrc file (or the appropriate shell configuration file):   
+#### 5. Update Environment Variables: Add the following to your ~/.zshrc file (or the appropriate shell configuration file):   
 		##
 		## pyspark with hadoop
 		##
